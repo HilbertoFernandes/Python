@@ -30,6 +30,7 @@ while True:
 
     num1 = float(input("Digite o primeiro número: "))
     num2 = float(input("Digite o segundo número: "))
+    
 
     if opcao == "1":
         print(f"Resultado: {somar(num1, num2)}")
