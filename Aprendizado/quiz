@@ -1,0 +1,41 @@
+# Este programa é um quiz simples de múltipla escolha em Python.
+# Ele apresenta perguntas, recebe respostas do usuário e mostra a pontuação no final.
+
+# Lista de perguntas e respostas
+quiz = [
+    {
+        "pergunta": "Qual a capital do Brasil?",
+        "opcoes": ["A) São Paulo", "B) Brasília", "C) Rio de Janeiro", "D) Belo Horizonte"],
+        "resposta": "B"
+    },
+    {
+        "pergunta": "Quanto é 5 x 3?",
+        "opcoes": ["A) 8", "B) 15", "C) 10", "D) 20"],
+        "resposta": "B"
+    },
+    {
+        "pergunta": "Qual linguagem estamos usando aqui?",
+        "opcoes": ["A) Java", "B) C++", "C) Python", "D) JavaScript"],
+        "resposta": "C"
+    }
+]
+
+# Variável para contar acertos
+pontuacao = 0
+
+# Loop pelas perguntas
+for i, q in enumerate(quiz, 1):
+    print(f"\nPergunta {i}: {q['pergunta']}")
+    for opcao in q['opcoes']:
+        print(opcao)
+    
+    resposta = input("Sua resposta (A/B/C/D): ").strip().upper()
+    
+    if resposta == q['resposta']:
+        print("✅ Resposta correta!")
+        pontuacao += 1
+    else:
+        print(f"❌ Resposta errada. A resposta correta era: {q['resposta']}")
+
+# Resultado final
+print(f"\nVocê acertou {pontuacao} de {len(quiz)} perguntas.")

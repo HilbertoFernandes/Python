@@ -1,0 +1,27 @@
+# Este programa converte um número inteiro (de 1 a 3999) em algarismos romanos.
+
+def converter_para_romano(numero):
+    # Dicionário com os valores romanos
+    valores = [
+        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+        (100, 'C'),  (90, 'XC'), (50, 'L'),  (40, 'XL'),
+        (10, 'X'),   (9, 'IX'),  (5, 'V'),   (4, 'IV'),
+        (1, 'I')
+    ]
+    
+    romano = ""
+    for valor, simbolo in valores:
+        while numero >= valor:
+            romano += simbolo
+            numero -= valor
+    return romano
+
+# Solicita um número do usuário
+numero = int(input("Digite um número entre 1 e 3999 para converter para romano: "))
+
+# Valida o intervalo
+if 1 <= numero <= 3999:
+    romano = converter_para_romano(numero)
+    print(f"O número {numero} em algarismos romanos é: {romano}")
+else:
+    print("Por favor, digite um número entre 1 e 3999.")

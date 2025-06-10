@@ -1,0 +1,68 @@
+# Este programa cria uma interface gráfica para sortear números aleatórios sem repetição.
+# O usuário informa o menor e o maior número de um intervalo, e a quantidade de números a sortear.
+# Após o sorteio, os números são exibidos na tela e o botão de sortear é substituído por um botão para sair da aplicação.
+
+import tkinter as tk
+from tkinter import messagebox
+import random
+
+def sortear_numeros():
+    try:
+        menor = int(entry_menor.get())
+        maior = int(entry_maior.get())
+        quantidade = int(entry_quantidade.get())
+
+        # Corrige ordem se necessário
+        if menor > maior:
+            menor, maior = maior, menor
+
+        total_possiveis = maior - menor + 1
+
+        if quantidade > total_possiveis:
+            messagebox.showerror("Erro", f"Não é possível sortear {quantidade} números únicos entre {menor} e {maior}.")
+            return
+
+        numeros = random.sample(range(menor, maior + 1), quantidade)
+        resultado_var.set(f"Números sorteados: {', '.join(map(str, numeros))}")
+
+        # Substitui o botão "Sortear" por "Sair"
+        btn_sortear.grid_remove()
+        btn_sair.grid(row=3, column=0, columnspan=2, pady=10)
+
+    except ValueError:
+        messagebox.showerror("Erro", "Por favor, insira apenas números inteiros.")
+
+def sair():
+    janela.destroy()
+
+# Janela principal
+janela = tk.Tk()
+janela.title("Sorteador de Números Únicos")
+
+# Entradas
+tk.Label(janela, text="Menor número:").grid(row=0, column=0, padx=5, pady=5, sticky="e")
+entry_menor = tk.Entry(janela)
+entry_menor.grid(row=0, column=1, padx=5, pady=5)
+
+tk.Label(janela, text="Maior número:").grid(row=1, column=0, padx=5, pady=5, sticky="e")
+entry_maior = tk.Entry(janela)
+entry_maior.grid(row=1, column=1, padx=5, pady=5)
+
+tk.Label(janela, text="Quantidade a sortear:").grid(row=2, column=0, padx=5, pady=5, sticky="e")
+entry_quantidade = tk.Entry(janela)
+entry_quantidade.grid(row=2, column=1, padx=5, pady=5)
+
+# Botão de sortear
+btn_sortear = tk.Button(janela, text="Sortear", command=sortear_numeros)
+btn_sortear.grid(row=3, column=0, columnspan=2, pady=10)
+
+# Botão de sair (criado antes, mas exibido só depois)
+btn_sair = tk.Button(janela, text="Sair", command=sair)
+
+# Resultado
+resultado_var = tk.StringVar()
+resultado_label = tk.Label(janela, textvariable=resultado_var, fg="blue")
+resultado_label.grid(row=4, column=0, columnspan=2, pady=10)
+
+# Inicia a aplicação
+janela.mainloop()
